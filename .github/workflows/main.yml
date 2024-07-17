@@ -22,4 +22,4 @@ jobs:
         env:
           ecrregistry: ${{steps.loginecr.outputs}}
         run:
-          echo: ecrregistry
+          echo ecrregistry
