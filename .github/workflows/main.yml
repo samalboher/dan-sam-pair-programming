@@ -1,0 +1,25 @@
+name: dan-sam
+on:
+  push:
+    branches: ["main"]
+jobs:
+  build_image:
+    name: build docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: loginaws
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          awsaccesskey: ${{secrets.awsaccesskey}}
+          awssecretkey: ${{secrets.awssecretkey}}
+          awsregion: ${{vars.awsregion}}
+      -name: loginecr
+        uses: aws-actions/amazon-ecr-login@v2
+        id: loginecr
+      -name: build&push
+        env:
+          ecrregistry: ${{steps.loginecr.outputs}}
+        run:
+          echo: ecrregistry
