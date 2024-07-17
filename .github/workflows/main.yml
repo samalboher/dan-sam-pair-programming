@@ -15,10 +15,10 @@ jobs:
           awsaccesskey: ${{secrets.awsaccesskey}}
           awssecretkey: ${{secrets.awssecretkey}}
           awsregion: ${{vars.awsregion}}
-      -name: loginecr
+      - name: loginecr
         uses: aws-actions/amazon-ecr-login@v2
         id: loginecr
-      -name: build&push
+      - name: build & push
         env:
           ecrregistry: ${{steps.loginecr.outputs}}
         run:
