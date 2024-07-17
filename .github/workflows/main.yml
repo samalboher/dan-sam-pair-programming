@@ -22,6 +22,6 @@ jobs:
         env:
           ecrregistry: ${{steps.loginecr.outputs.registry}}
           ecrrepository: ${{secrets.ECRREPO}}
-        run:
+        run: |
           docker build -t $ecrregistry/$ecrrepository:latest ./
           docker push $ecrregistry/$ecrrepository:latest
