@@ -4,4 +4,4 @@ WORKDIR /
 
 COPY . .
 
-RUN ./nginx.sh
+CMD sh ./nginx.sh
