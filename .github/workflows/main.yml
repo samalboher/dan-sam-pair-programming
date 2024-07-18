@@ -43,4 +43,10 @@ jobs:
         id: loginecr
       - name: deploy2ec2
         run: |
-         #finish on next session look into setting up up terraform with ssm
+         aws ssm send-command \
+          --instance-ids ${{vars.INSTANCEID}} \
+          --document-name "AWS-RunShellScript" \
+          --parameters 'commands=[
+            "aws ecr get-login-password --region ${{vars.AWSREGION}} | docker login --username AWS --password-stdin ${{steps.loginecr.outputs.registry}}",
+            "docker pull ${{steps.loginecr.outputs.registry}}/${{secrets.ECRREPO}}:latest"
+          ]'
