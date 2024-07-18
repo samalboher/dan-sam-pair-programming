@@ -48,5 +48,6 @@ jobs:
           --document-name "AWS-RunShellScript" \
           --parameters 'commands=[
             "aws ecr get-login-password --region ${{vars.AWSREGION}} | docker login --username AWS --password-stdin ${{steps.loginecr.outputs.registry}}",
-            "docker pull ${{steps.loginecr.outputs.registry}}/${{secrets.ECRREPO}}:latest"
+            "docker pull ${{steps.loginecr.outputs.registry}}/${{secrets.ECRREPO}}:latest",
+            "docker run --rm -d -p 80:80 -name dans-teachings ${{steps.loginecr.outputs.registry}}/${{secrets.ECRREPO}}:latest"
           ]'
